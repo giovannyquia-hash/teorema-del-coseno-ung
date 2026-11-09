@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemáticas Básicas · Teorema del coseno | Universidad Nueva Granada</title>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{--ink:#1c2340;--accent:#ea580c;--accent-soft:#fff7ed;--line:#e4e8f2;--muted:#6b7280;--panel:#fff;--uni:#7a44ff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:#f6f8fc;color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+  .topbar{background:var(--panel);border-bottom:1px solid var(--line)}
+  .topbar .wrap{height:64px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;letter-spacing:-.5px}
+  .brand .cube{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#ea580c,#2563eb);color:#fff;display:grid;place-items:center;font-size:17px;font-weight:900}
+  .brand small{display:block;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:0}
+  .prof{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted)}
+  .prof .dot{width:8px;height:8px;border-radius:50%;background:#22c55e}
+  .hero{background:var(--panel);border-bottom:1px solid var(--line)}
+  .hero .wrap{padding:34px 20px 28px}
+  .crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+  .crumbs b{color:var(--uni)}
+  h1{font-size:32px;letter-spacing:-1px;margin-bottom:8px;line-height:1.15}
+  .intro{max-width:860px;color:#3a4363;font-size:15px}
+  .intro p+p{margin-top:8px}
+  .docente{display:inline-flex;align-items:center;gap:10px;margin-top:16px;background:var(--accent-soft);border:1px solid #fed7aa;border-radius:999px;padding:9px 16px;font-size:14px;font-weight:700;color:var(--accent)}
+  .docente .avatar{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:800}
+  .formulas{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .formulas span{background:var(--accent-soft);border:1px solid #fed7aa;border-radius:8px;padding:7px 12px;font-size:13px;font-weight:700;color:#9a3412}
+  .searchbox{margin:26px 0 6px}
+  .searchbox input{width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:var(--panel);font-family:inherit;outline:none}
+  .searchbox input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(234,88,12,.12)}
+  .resultcount{font-size:13px;color:var(--muted);margin:8px 2px 0}
+  .scorebar{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+  .scorepill{background:#ecfdf3;color:#15803d;border:1px solid #bbf7d0;border-radius:999px;padding:4px 12px;font-weight:800}
+  .btn{padding:9px 16px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;border:2px solid var(--line);background:#fff;color:var(--ink)}
+  .btn:hover{border-color:var(--accent)}
+  .btn.solid{border-color:var(--accent);background:var(--accent);color:#fff}
+  .skills{gap:18px;display:flex;flex-direction:column;margin:18px 0 60px}
+  .cat{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:visible;box-shadow:0 1px 2px rgba(16,24,64,.04)}
+  .cat-head{display:flex;align-items:center;gap:14px;padding:16px 20px;border-left:6px solid var(--cc);border-radius:14px 14px 0 0}
+  .cat-letter{width:38px;height:38px;border-radius:50%;background:var(--cc);color:#fff;display:grid;place-items:center;font-weight:900;font-size:18px;flex:0 0 auto}
+  .cat-head h2{font-size:19px;letter-spacing:-.3px}
+  .cat-head .count{font-size:12px;color:var(--muted);font-weight:600}
+  .cat-skills{list-style:none}
+  .skill{position:relative;display:flex;align-items:center;gap:14px;padding:11px 20px;border-top:1px solid var(--line);cursor:pointer;transition:background .12s}
+  .skill:hover{background:#f7f9ff}
+  .skill.sel{background:var(--accent-soft)}
+  .skill-code{flex:0 0 52px;font-size:12px;font-weight:800;color:var(--cc);letter-spacing:.4px}
+  .skill-name{flex:1;font-size:15px;color:var(--ink)}
+  .hint{font-size:12px;font-weight:700;color:var(--accent);opacity:0;transition:opacity .12s;white-space:nowrap}
+  .skill:hover .hint{opacity:1}
+  .pop{position:absolute;left:56%;top:-8px;width:350px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 34px rgba(16,24,64,.16);padding:14px 16px;z-index:30;opacity:0;pointer-events:none;transform:translateY(4px);transition:.16s}
+  .skill:hover .pop{opacity:1;pointer-events:auto;transform:translateY(0)}
+  .pop .q-label{font-size:11px;font-weight:800;letter-spacing:.6px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+  .pop .q{font-size:14px;color:var(--ink);font-weight:600;margin-bottom:10px;line-height:1.5}
+  .pop .answers{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .pop .ans{border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-size:13px;font-weight:600;color:var(--ink);text-align:center;word-break:break-word}
+  .pop .ans.ok{border-color:#22c55e;background:#ecfdf3;color:#15803d}
+  .pop .caret{position:absolute;left:-6px;top:18px;width:12px;height:12px;background:var(--panel);border-left:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+  @media(max-width:720px){.hint{display:none}.prof{display:none}.docente{font-size:12px;padding:7px 12px}.pop{position:fixed;left:16px;top:auto;bottom:14px;width:calc(100% - 32px);transform:none;max-height:70vh;overflow:auto}.pop .caret{display:none}}
+  .modal{position:fixed;inset:0;background:rgba(16,22,48,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;opacity:0;pointer-events:none;transition:opacity .18s}
+  .modal.open{opacity:1;pointer-events:auto}
+  .modal-card{background:#fff;border-radius:16px;width:100%;max-width:560px;max-height:90vh;overflow:auto;box-shadow:0 24px 60px rgba(0,0,0,.3);transform:translateY(8px);transition:transform .18s}
+  .modal.open .modal-card{transform:translateY(0)}
+  .modal-head{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .modal-head h3{font-size:19px;flex:1}
+  .modal-x{border:none;background:#eef0f6;width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer;line-height:1;color:var(--ink)}
+  .modal-body{padding:22px}
+  .modal-foot{display:flex;gap:10px;justify-content:flex-end;padding:0 22px 20px;flex-wrap:wrap}
+  .prac-q{font-size:18px;font-weight:700;margin-bottom:6px}
+  .prac-sub{font-size:15px;color:#4b5675;margin-bottom:16px;line-height:1.6}
+  .prac-ans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  @media(max-width:520px){.prac-ans{grid-template-columns:1fr}}
+  .prac-ans button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--ink);transition:.12s;word-break:break-word}
+  .prac-ans button:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .prac-ans button.good{border-color:#22c55e;background:#ecfdf3;color:#15803d}
+  .prac-ans button.bad{border-color:#ef4444;background:#fef2f2;color:#b91c1c}
+  .prac-ans button:disabled{cursor:default}
+  .prac-fb{font-weight:700;margin-bottom:14px;min-height:20px}
+  .prac-fb.good{color:#15803d}
+  .prac-fb.bad{color:#b91c1c}
+  .toast-wrap{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:200;align-items:center;pointer-events:none}
+  .toast{background:#141a33;color:#fff;padding:11px 18px;border-radius:10px;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.28);opacity:0;transform:translateY(10px);transition:.2s}
+  .toast.show{opacity:1;transform:translateY(0)}
+  footer{background:#141a33;color:#b9c2da;font-size:13px;margin-top:20px}
+  footer .wrap{padding:34px 20px;text-align:center}
+  footer .name{color:#fff;font-weight:700}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><div class="cube">△</div>
+      <div>Matemáticas Básicas<small>Universidad Nueva Granada</small></div>
+    </div>
+    <div class="prof"><span class="dot"></span>Prof. F. Giovanny Quiazúa M.</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="crumbs"><b>Universidad Nueva Granada</b> › Matemáticas Básicas › Teorema del coseno</div>
+    <h1>Matemáticas Básicas · Teorema del coseno</h1>
+    <div class="intro">
+      <p>Lista de competencias sobre el <b>teorema del coseno</b> (ley de los cosenos): relación entre los tres lados y un ángulo de cualquier triángulo, cálculo de lados y ángulos, casos LAL y LLL, y su conexión con el teorema de Pitágoras.</p>
+      <p>Ubica el cursor sobre una competencia para ver una pregunta de ejemplo y haz clic para practicar; la plataforma guarda tus aciertos.</p>
+    </div>
+    <div class="formulas">
+      <span>$a^2=b^2+c^2-2bc\cos A$</span>
+      <span>$b^2=a^2+c^2-2ac\cos B$</span>
+      <span>$c^2=a^2+b^2-2ab\cos C$</span>
+      <span>$\cos A=\dfrac{b^2+c^2-a^2}{2bc}$</span>
+    </div>
+    <div class="docente"><span class="avatar">FG</span>Docente: F. Giovanny Quiazúa M.</div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="searchbox">
+    <input id="search" type="search" placeholder="Buscar una competencia (ej. ley de cosenos, LAL, LLL, ángulo, Pitágoras...)">
+  </div>
+  <div class="resultcount" id="rc"></div>
+  <div class="scorebar">
+    <span>Tu puntuación:</span>
+    <span class="scorepill" id="scorePill">0 / 0</span>
+    <button class="btn" type="button" id="resetScore" style="padding:5px 12px">Reiniciar</button>
+  </div>
+  <div class="skills" id="skills"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Universidad Nueva Granada · Curso de Matemáticas Básicas · Teorema del coseno</div>
+    <div class="name">Prof. F. Giovanny Quiazúa M.</div>
+    <div style="margin-top:6px">© 2026 · Ejercicios de práctica. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="modalTitle">Título</h3>
+      <button class="modal-x" type="button" id="modalX" aria-label="Cerrar">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toasts"></div>
+
+<script>
+"use strict";
+
+const CATS = [
+  {
+    letter: "A",
+    color: "#ea580c",
+    title: "Fundamentos del teorema del coseno",
+    skills: [
+      { c:"A.1", t:"Enunciado del teorema del coseno", q:"Para hallar el lado $a$ opuesto al ángulo $A$, el teorema del coseno es:", a:["$a^2=b^2+c^2-2bc\\cos A$","$a^2=b^2+c^2+2bc\\cos A$","$\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$","$a^2=b^2-c^2$"], ok:0 },
+      { c:"A.2", t:"Forma para el lado $b$", q:"La expresión correcta para $b^2$ es:", a:["$b^2=a^2+c^2-2ac\\cos B$","$b^2=a^2+c^2-2bc\\cos B$","$b^2=a^2+b^2-2ab\\cos B$","$b^2=a^2-c^2-2ac\\cos B$"], ok:0 },
+      { c:"A.3", t:"Relación con Pitágoras", q:"Si $A=90^\\circ$, entonces $\\cos A=0$ y el teorema del coseno se convierte en:", a:["$a^2=b^2+c^2$ (Pitágoras)","$a^2=b^2-c^2$","$a=b+c$","$a^2=2bc$"], ok:0 },
+      { c:"A.4", t:"Cuándo aplicar (LAL)", q:"El teorema del coseno es ideal cuando se conocen:", a:["Dos lados y el ángulo comprendido (LAL)","Dos ángulos y un lado (AAL)","Solo los ángulos","Un lado y su ángulo opuesto únicamente"], ok:0 },
+      { c:"A.5", t:"Cuándo aplicar (LLL)", q:"También se usa el teorema del coseno para hallar ángulos cuando se conocen:", a:["Los tres lados (LLL)","Un ángulo y dos lados opuestos","Dos ángulos","La altura únicamente"], ok:0 },
+      { c:"A.6", t:"Despejar el coseno de un ángulo", q:"De $a^2=b^2+c^2-2bc\\cos A$, se obtiene:", a:["$\\cos A=\\dfrac{b^2+c^2-a^2}{2bc}$","$\\cos A=\\dfrac{a^2-b^2-c^2}{2bc}$","$\\cos A=\\dfrac{b^2+c^2+a^2}{2bc}$","$\\cos A=\\dfrac{2bc}{b^2+c^2-a^2}$"], ok:0 }
+    ]
+  },
+  {
+    letter: "B",
+    color: "#2563eb",
+    title: "Cálculo de lados (caso LAL)",
+    skills: [
+      { c:"B.1", t:"Plantear el cálculo de un lado", q:"Si $b=5$, $c=7$ y $A=60^\\circ$, para hallar $a$ se plantea:", a:["$a^2=5^2+7^2-2(5)(7)\\cos 60^\\circ$","$a^2=5^2+7^2+2(5)(7)\\cos 60^\\circ$","$a^2=5^2-7^2-2(5)(7)\\cos 60^\\circ$","$\\dfrac{a}{\\sin 60^\\circ}=\\dfrac{5}{\\sin B}$"], ok:0 },
+      { c:"B.2", t:"Sustituir $\\cos 60^\\circ$", q:"Como $\\cos 60^\\circ=\\frac{1}{2}$, en $a^2=25+49-70\\cos 60^\\circ$ resulta:", a:["$a^2=74-35=39$","$a^2=74+35=109$","$a^2=74-70=4$","$a^2=4$"], ok:0 },
+      { c:"B.3", t:"Obtener el lado", q:"Si $a^2=39$, entonces $a=$", a:["$\\sqrt{39}$","$39$","$19.5$","$\\sqrt{78}$"], ok:0 },
+      { c:"B.4", t:"Caso con ángulo obtuso", q:"Si $A=120^\\circ$, $\\cos 120^\\circ=-\\frac{1}{2}$. Entonces $-2bc\\cos A$ se vuelve:", a:["$-2bc\\left(-\\frac{1}{2}\\right)=+bc$ (suma)","$-bc$","$0$","$-2bc$"], ok:0 },
+      { c:"B.5", t:"Interpretación geométrica (obtuso)", q:"Con un ángulo obtuso en $A$, el lado opuesto $a$ tiende a ser:", a:["Mayor que si el ángulo fuera agudo (con los mismos $b,c$)","Siempre menor","Igual a $b+c$","Igual a $b-c$"], ok:0 },
+      { c:"B.6", t:"Verificación de razonabilidad", q:"Al calcular un lado de un triángulo, el resultado debe cumplir:", a:["Ser positivo y menor que la suma de los otros dos lados","Ser mayor que la suma de los otros dos","Ser negativo","Ser igual al ángulo opuesto"], ok:0 }
+    ]
+  },
+  {
+    letter: "C",
+    color: "#059669",
+    title: "Cálculo de ángulos (caso LLL)",
+    skills: [
+      { c:"C.1", t:"Plantear el cálculo de un ángulo", q:"Si $a=7$, $b=8$, $c=9$, para hallar $A$ se usa:", a:["$\\cos A=\\dfrac{b^2+c^2-a^2}{2bc}=\\dfrac{64+81-49}{144}$","$\\cos A=\\dfrac{a^2+b^2-c^2}{2ab}$","$\\dfrac{7}{\\sin A}=\\dfrac{8}{\\sin B}$ directamente sin más datos","$A=\\dfrac{7}{8+9}$"], ok:0 },
+      { c:"C.2", t:"Calcular el coseno", q:"$\\cos A=\\dfrac{64+81-49}{144}=\\dfrac{96}{144}$ se simplifica a:", a:["$\\frac{2}{3}$","$\\frac{3}{4}$","$\\frac{1}{2}$","$\\frac{4}{3}$"], ok:0 },
+      { c:"C.3", t:"Obtener el ángulo", q:"Si $\\cos A=\\frac{2}{3}\\approx 0.6667$, entonces $A$ es aproximadamente:", a:["$48.2^\\circ$ (usando $\\arccos$)","$90^\\circ$","$60^\\circ$","$41.8^\\circ$"], ok:0 },
+      { c:"C.4", t:"Tipo de ángulo según el coseno", q:"Si al calcular $\\cos A$ se obtiene un valor negativo, el ángulo $A$ es:", a:["Obtuso (mayor que $90^\\circ$)","Agudo","Recto","No existe"], ok:0 },
+      { c:"C.5", t:"Verificar existencia del triángulo", q:"Con lados $a,b,c$, existe triángulo si:", a:["Cada lado es menor que la suma de los otros dos","$a=b=c$ siempre","Un lado es mayor que la suma de los otros","$a^2=b^2+c^2$"], ok:0 },
+      { c:"C.6", t:"Hallar los demás ángulos", q:"Tras hallar $A$ con teorema del coseno (LLL), se puede hallar $B$ usando:", a:["Teorema del coseno o del seno, y luego $C=180^\\circ-A-B$","Solo Pitágoras","No es posible","Solo midiendo"], ok:0 }
+    ]
+  },
+  {
+    letter: "D",
+    color: "#7c3aed",
+    title: "Aplicaciones y elección de método",
+    skills: [
+      { c:"D.1", t:"Elegir entre seno y coseno (LAL)", q:"Datos: dos lados y el ángulo comprendido. El método más directo para el tercer lado es:", a:["Teorema del coseno","Teorema del seno","Pitágoras","Razones trigonométricas básicas"], ok:0 },
+      { c:"D.2", t:"Elegir entre seno y coseno (ALA/AAL)", q:"Datos: dos ángulos y un lado. El método más directo es:", a:["Suma de ángulos + teorema del seno","Teorema del coseno directamente","Solo Pitágoras","No se puede resolver"], ok:0 },
+      { c:"D.3", t:"Distancia entre dos puntos (aplicación)", q:"Dos lados de 6 km y 10 km forman un ángulo de $45^\\circ$. La distancia entre sus extremos es:", a:["$\\sqrt{6^2+10^2-2(6)(10)\\cos 45^\\circ}$","$6+10$","$\\sqrt{6^2+10^2}$","$\\dfrac{6}{\\sin 45^\\circ}$"], ok:0 },
+      { c:"D.4", t:"Perímetro tras hallar un lado", q:"Si se halla $a=\\sqrt{39}$ en un triángulo con $b=5, c=7$, el perímetro es:", a:["$5+7+\\sqrt{39}$","$35\\sqrt{39}$","$12$","$\\sqrt{39}$"], ok:0 },
+      { c:"D.5", t:"Relación con área", q:"Si conoces $b,c,A$ (LAL), puedes hallar $a$ con teorema del coseno y el área con:", a:["$\\text{Área}=\\frac{1}{2}bc\\sin A$","$\\text{Área}=bc\\cos A$","$\\text{Área}=a+b+c$","Pitágoras"], ok:0 },
+      { c:"D.6", t:"Comprobación de resultado", q:"Si al usar teorema del coseno obtienes $a^2<0$, esto indica:", a:["Error en los datos o cálculos (longitud imposible)","Un triángulo obtuso válido","Que $a=0$","Que debes usar seno"], ok:0 }
+    ]
+  }
+];
+
+const skillsEl=document.getElementById("skills"), searchEl=document.getElementById("search"), rcEl=document.getElementById("rc");
+CATS.forEach(cat=>{
+  const section=document.createElement("section");
+  section.className="cat"; section.dataset.letter=cat.letter; section.style.setProperty("--cc",cat.color); section.dataset.title=cat.title.toLowerCase();
+  const head=document.createElement("div"); head.className="cat-head";
+  head.innerHTML=`<div class="cat-letter">${cat.letter}</div><h2>${cat.title}</h2><span class="count">${cat.skills.length} competencias</span>`;
+  section.appendChild(head);
+  const ul=document.createElement("ul"); ul.className="cat-skills";
+  cat.skills.forEach(s=>{
+    const li=document.createElement("li"); li.className="skill";
+    li.dataset.search=(cat.letter+" "+s.c+" "+s.t+" "+cat.title).toLowerCase();
+    li.innerHTML=`<div class="skill-code">${s.c}</div><a class="skill-name" href="#">${s.t}</a><span class="hint">Practicar ›</span>
+      <div class="pop"><div class="q-label">Pregunta de ejemplo · ${s.c}</div><div class="q">${s.q}</div>
+      <div class="answers">${s.a.map((ans,i)=>`<div class="ans${i===s.ok?' ok':''}">${ans}</div>`).join("")}</div><div class="caret"></div></div>`;
+    li.__cat=cat; li.__skill=s; ul.appendChild(li);
+  });
+  section.appendChild(ul); skillsEl.appendChild(section);
+});
+
+function typeset(el){ if(window.MathJax && MathJax.typesetPromise){ MathJax.typesetPromise([el]).catch(()=>{}); } }
+typeset(document.body);
+
+const modal=document.getElementById("modal"), modalTitle=document.getElementById("modalTitle"), modalBody=document.getElementById("modalBody"), modalFoot=document.getElementById("modalFoot");
+function openModal(title,body,foot){ modalTitle.textContent=title; modalBody.innerHTML=body; modalFoot.innerHTML=foot||""; modal.classList.add("open"); typeset(modalBody); }
+function closeModal(){ modal.classList.remove("open"); }
+document.getElementById("modalX").addEventListener("click",closeModal);
+modal.addEventListener("click",e=>{ if(e.target===modal) closeModal(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
+
+function toast(msg){ const wrap=document.getElementById("toasts"); const t=document.createElement("div"); t.className="toast"; t.textContent=msg; wrap.appendChild(t); requestAnimationFrame(()=>t.classList.add("show")); setTimeout(()=>{t.classList.remove("show"); setTimeout(()=>t.remove(),250);},2600); }
+
+let score={ok:0,total:0};
+try{ const raw=JSON.parse(localStorage.getItem("ung_teorema_coseno_score_v1")); if(raw&&typeof raw.ok==="number") score=raw; }catch(e){}
+function saveScore(){ try{ localStorage.setItem("ung_teorema_coseno_score_v1",JSON.stringify(score)); }catch(e){} }
+function paintScore(){ document.getElementById("scorePill").textContent=score.ok+" / "+score.total; }
+document.getElementById("resetScore").addEventListener("click",()=>{ score={ok:0,total:0}; saveScore(); paintScore(); toast("Puntuación reiniciada"); });
+paintScore();
+
+function openPractice(cat,s){
+  const order=s.a.map((_,i)=>i);
+  for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+  const correctPos=order.indexOf(s.ok);
+  const answers=order.map((orig,pos)=>`<button type="button" data-i="${pos}">${s.a[orig]}</button>`).join("");
+  openModal(s.c+" · "+cat.title,
+    `<div class="prac-q">${s.t}</div><div class="prac-sub">${s.q}</div><div class="prac-ans" id="pracAns">${answers}</div><div class="prac-fb" id="pracFb"></div>`,
+    `<button class="btn" type="button" id="pracClose">Cerrar</button><button class="btn solid" type="button" id="pracNext">Siguiente competencia</button>`);
+  document.getElementById("pracClose").addEventListener("click",closeModal);
+  document.getElementById("pracNext").addEventListener("click",()=>nextSkill(cat,s));
+  const fb=document.getElementById("pracFb");
+  document.querySelectorAll("#pracAns button").forEach(btn=>btn.addEventListener("click",()=>{
+    const right=Number(btn.dataset.i)===correctPos;
+    score.total++; if(right) score.ok++; saveScore(); paintScore();
+    document.querySelectorAll("#pracAns button").forEach((b,i)=>{ b.disabled=true; if(i===correctPos) b.classList.add("good"); });
+    if(!right) btn.classList.add("bad");
+    fb.className="prac-fb "+(right?"good":"bad");
+    fb.textContent=right?"¡Correcto!":"Incorrecto. La respuesta correcta está en verde.";
+  }));
+}
+function nextSkill(cat,s){ const next=cat.skills[(cat.skills.indexOf(s)+1)%cat.skills.length]; openPractice(cat,next); }
+
+skillsEl.addEventListener("click",e=>{
+  const li=e.target.closest(".skill"); if(!li) return; e.preventDefault();
+  document.querySelectorAll(".skill.sel").forEach(x=>x!==li&&x.classList.remove("sel"));
+  li.classList.add("sel"); openPractice(li.__cat,li.__skill);
+});
+
+function renderCount(){
+  const q=searchEl.value.trim().toLowerCase(); let shown=0;
+  document.querySelectorAll(".cat").forEach(sec=>{
+    let vis=0;
+    sec.querySelectorAll(".skill").forEach(s=>{
+      const ok=!q||s.dataset.search.includes(q)||sec.dataset.title.includes(q)||sec.dataset.letter.toLowerCase()===q;
+      s.style.display=ok?"":"none"; if(ok) vis++;
+    });
+    sec.style.display=vis?"":"none"; shown+=vis;
+  });
+  rcEl.textContent=shown+" competencias"+(q?` con "${searchEl.value.trim()}"`:"")+" en 4 categorías";
+}
+searchEl.addEventListener("input",renderCount); renderCount();
+</script>
+</body>
+</html>
